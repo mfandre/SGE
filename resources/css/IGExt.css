@@ -1,0 +1,60 @@
+.add{
+	background: url(../images/add.png);
+}
+
+.edit{
+	background: url(../images/edit.png);
+}
+
+.delete{
+	background: url(../images/del.png);
+}
+
+.refresh{
+	background: url(../images/refresh.png);
+}
+
+.collapse{
+	background: url(../images/collapse.png);
+}
+
+.expand{
+	background: url(../images/expand.png);
+}
+
+.logout{
+	background: url(../images/logout.png);
+}
+
+.save{
+	background: url(../images/save.png);
+}
+
+.cancel{
+	background: url(../images/cancel.png);
+}
+
+.check{
+	background: url(../images/check.png);
+}
+
+.comprar{
+	background: url(../images/comprado.png);
+}
+
+.clsLabelEntradaIngresso{
+	font-size: 80px;
+	text-align: center;
+
+	padding-top: 120px;
+}
+
+#header h1{
+	font-size: 15px;
+	color: #fff;
+	font-weight: normal;
+	padding: 5px 10px;
+	font-family: sans-serif;
+}
+
+h1,p { font-family: arial; }

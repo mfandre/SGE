@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>SGE - Login</title>
+
+	<!-- Arquivos do Ext JS - atenção ao local! -->
+    <link rel="stylesheet" type="text/css" href="./extjs/resources/css/ext-all.css">
+    <script type="text/javascript" src="extjs/ext-all.js"></script>
+
+    <script>
+	Ext.onReady(function(){
+		Ext.QuickTips.init();
+		function doLogin(){
+			if(login.getForm().isValid()){
+				login.getForm().submit({
+					method: 'POST',
+					waitTitle: 'Efetuando login no sistema',
+					waitMsg: 'Verificando informações...',
+					success: function(){
+						login.getForm().reset();
+						var redirect = 'principal.html';
+						window.location = redirect;
+					},
+					failure: function(form,action){
+						if(action.failureType == 'server'){
+							obj = Ext.decode(action.response.responseText);
+							Ext.Msg.show({
+								title: 'Falha no login', 
+								msg: obj.errors.reason,
+								buttons: Ext.Msg.OK,
+								icon: Ext.MessageBox.ERROR,
+								scope: this,
+								width: 150
+							});
+						}else{
+							Ext.Msg.alert('Atenção','Não foi possível autenticar no sistema.');
+						}
+						login.getForm().reset();
+					}
+				});
+			}
+		}
+
+		var login = Ext.create('Ext.FormPanel',{
+				labelWidth : 50,
+				url : './php/Login/login.php?action=logar',
+				frame : true,
+				defaultType : 'textfield',
+				monitorValid : true, //evita que o form seja enviado sem estar corretamente preenchido
+				items : [
+					{
+						fieldLabel : 'Usuário',
+						name: 'usuario',
+						blankText: 'Preencha este campo com o seu login.',
+						width: 250,
+						allowBlank: false
+					},
+					{
+						fieldLabel : 'Senha',
+						name: 'senha',
+						inputType: 'password',
+						blankText: 'Preencha este campo com o sua senha.',
+						width: 250,
+						allowBlank: false,
+						listeners: {
+							specialkey : function(f,e){
+								if(e.key === e.ENTER)
+									doLogin();
+							}
+						}
+					}
+				],
+				buttons: [
+					{
+						text: 'Login',
+						formbind: true,
+						handler: doLogin
+					}
+				]
+		});
+
+		var win = Ext.create('Ext.Window',{
+			layout: 'fit',
+			title: 'Login no sistema',
+			width: 280,
+			height: 140,
+			y: 250,
+			closable: false,
+			resizable: false,
+			draggable: false,
+			plain: true,
+			border: false,
+			items: [login]
+		});
+
+		win.show();
+	});
+    </script>
+    
+</head>
+<body style='background: black'></body>
+</html>
