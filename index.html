@@ -65,7 +65,7 @@
 						allowBlank: false,
 						listeners: {
 							specialkey : function(f,e){
-								if(e.key === e.ENTER)
+								if(e.getKey() === e.ENTER)
 									doLogin();
 							}
 						}
