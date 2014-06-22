@@ -1,71 +1,55 @@
 Ext.require('Ext.window.MessageBox');
 
-Ext.define('IGExt.controller.menuEventoEventos', {
+Ext.define('IGExt.controller.menuProdutoProdutos', {
 	extend: 'Ext.app.Controller',
 	views: [
-		'CadEvento.CadEvento',
-		'Evento.List',
-		'Evento.Edit'
+		'Produto.List',
+		'Produto.Edit',
+		'Produto.CadProduto',
 	],
-	models: ['Evento'],
-	stores: ['Eventos'],
+	models: ['Produto'],
+	stores: ['Produtos'],
 
 // faz um get/set para as views
 // ele pega alias
 	refs: [ 
 		{
-			ref: 'eventoEdit',
-			selector: 'eventoEdit'
+			ref: 'produtoEdit',
+			selector: 'produtoEdit'
 		},
 		{
-			ref: 'eventoList',
-			selector: 'CadEvento eventoList'
+			ref: 'produtoList',
+			selector: 'produtoList'
 		}
 	],
 
 	init: function(){
 		this.control({
-			'CadEvento eventoList' : {
+			'produtoList' : {
 				itemdblclick: this.edit,
-				itemclick: function(self,model, html_element, index, event,opts){
-					myMask.show();
-					var panelLote = self.ownerCt.up('panel').up('panel').down('#panelLoteIngresso').down('#panelLote');
-					var panelIngresso= self.ownerCt.up('panel').up('panel').down('#panelLoteIngresso').down('#panelIngresso');
-					if(self.up('#panelEvento').getSelectionModel().getCount()==0 || self.up('#panelEvento').getSelectionModel().getCount()>1){
-						myMask.hide();
-						panelLote.disable();
-						panelIngresso.disable();
-						return;
-					}
-
-					panelLote.store.proxy.extraParams.id_evento = model.getId();
-					panelLote.store.loadPage(1);
-					panelLote.enable();
-					panelIngresso.disable();
-				}
 			},
 
 			// 'eventoList' : {
 			// 	meuevento: this.disparandoNossoEvento
 			// },
 
-			'CadEvento eventoList button[action=insert]' : {
+			'produtoList button[action=insert]' : {
 				click: this.insert
 			},
 
-			'CadEvento eventoList button[action=edit]' : {
+			'produtoList button[action=edit]' : {
 				click: this.edit
 			},
 
-			'CadEvento eventoList button[action=destroy]' : {
+			'produtoList button[action=destroy]' : {
 				click: this.destroy
 			},
 
-			'CadEvento eventoList button[action=refresh]' : {
+			'produtoList button[action=refresh]' : {
 				click: this.refresh
 			},
 
-			'eventoEdit button[action=save]' : {
+			'produtoEdit button[action=save]' : {
 				click: this.save
 			}
 		});
@@ -79,21 +63,17 @@ Ext.define('IGExt.controller.menuEventoEventos', {
 	},
 
 	refresh: function(btn){
-		var panelLote = btn.up('panel').up('panel').up('panel').down('#panelLoteIngresso').down('#panelLote');
-		var panelIngresso= btn.up('panel').up('panel').up('panel').down('#panelLoteIngresso').down('#panelIngresso');
-		panelLote.disable();
-		panelIngresso.disable();
 		myMask.show();
-		this.getEventoList().store.load();
+		this.getProdutoList().store.load();
 	},
 
 	insert: function(btn,evt,opt){
-		var view = Ext.widget('eventoEdit');
-		view.setTitle('Inserindo evento');
+		var view = Ext.widget('produtoEdit');
+		view.setTitle('Inserindo produto');
 	},
 
 	destroy: function(){
-		var grid = this.getEventoList();
+		var grid = this.getProdutoList();
 		var records = grid.getSelectionModel().getSelection();
 
 		if(records.length === 0){
@@ -109,9 +89,9 @@ Ext.define('IGExt.controller.menuEventoEventos', {
 				width: 450,
 				fn: function(btn,ev){
 					if(btn == 'yes'){
-						var store = this.getEventoList().store;
+						var store = this.getProdutoList().store;
 						store.remove(records);
-						this.getEventoList().store.sync();
+						this.getProdutoList().store.sync();
 					}
 				}
 			});
@@ -132,22 +112,22 @@ Ext.define('IGExt.controller.menuEventoEventos', {
 					record.set(values);
 				}
 			}else{
-				var record = Ext.create('IGExt.model.Evento');
+				var record = Ext.create('IGExt.model.Produto');
 				record.set(values);
-				this.getEventoList().store.add(record);
+				this.getProdutoList().store.add(record);
 			}
 			win.close();
-			this.getEventoList().store.sync();
+			this.getProdutoList().store.sync();
 		}else{
 			Ext.Msg.alert('Atenção','Preencha os campos corretamente.');
 		}
 	},
 
 	edit: function(){
-		var records = this.getEventoList().getSelectionModel().getSelection();
+		var records = this.getProdutoList().getSelectionModel().getSelection();
 
 		if(records.length === 1){
-			var editwind = Ext.widget('eventoEdit');
+			var editwind = Ext.widget('produtoEdit');
 			var editForm = editwind.down('form');
 			var record = records[0];
 			editForm.loadRecord(record);

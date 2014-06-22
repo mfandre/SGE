@@ -1,7 +1,7 @@
-Ext.define('IGExt.view.CadEvento.CadEvento',{
+Ext.define('IGExt.view.CadFichaProduto.CadFichaProduto',{
 	extend: 'Ext.panel.Panel',
-	itemId: 'cadastroEvento',
-	alias: 'widget.CadEvento',
+	itemId: 'fichaProduto',
+	alias: 'widget.CadFichaProduto',
 	border: false,
 	autoScroll:true,
 	layout: {
@@ -18,14 +18,27 @@ Ext.define('IGExt.view.CadEvento.CadEvento',{
 		{
 			xtype: 'panel',
 			flex: 2,
-			itemId: 'panelLoteIngresso',
+			itemId: 'panelProdutoEvento',
 			layout: {
 				type: 'hbox',
 				align: 'stretchmax'
 			},
 			items: [
-				{flex: 1,items:[{xtype: 'loteList',disabled:true,height:350,}]},
-				{flex: 1,items:[{xtype: 'ingressoList',disabled: true,height:350,}]}
+				{
+					flex: 1,items:[
+						{
+							xtype: 'produtoList',
+							disabled:true,height:350,
+						}
+					]
+				}
+,				{
+					flex: 1,items:[
+						{
+							xtype: 'precoProdutoList',
+							disabled: true,height:350
+						}
+					]}
 			]
 		}
 	],

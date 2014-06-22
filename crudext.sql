@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 4.2.3
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tempo de Geração: Jun 07, 2014 as 07:12 
--- Versão do Servidor: 5.1.41
--- Versão do PHP: 5.3.1
+-- Host: localhost
+-- Generation Time: 22-Jun-2014 às 06:07
+-- Versão do servidor: 5.6.19
+-- PHP Version: 5.4.24
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -15,9 +16,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-use crudext;
 --
--- Banco de Dados: `crudext`
+-- Database: `crudext`
 --
 
 -- --------------------------------------------------------
@@ -27,20 +27,20 @@ use crudext;
 --
 
 CREATE TABLE IF NOT EXISTS `evento` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `nome` varchar(64) NOT NULL,
   `data_evento` date NOT NULL,
-  `data_cadastro` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `data_cadastro` date NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `evento`
 --
 
 INSERT INTO `evento` (`id`, `nome`, `data_evento`, `data_cadastro`) VALUES
-(1, 'Hudson 22', '2014-06-13', '2014-06-07'),
-(2, 'teste', '2014-06-07', '2014-06-07');
+(1, 'Hudson 22', '2014-06-12', '2014-06-07'),
+(2, 'teste', '2014-06-07', '2014-06-07'),
+(3, 'teste2', '2014-06-21', '2014-06-21');
 
 -- --------------------------------------------------------
 
@@ -49,16 +49,14 @@ INSERT INTO `evento` (`id`, `nome`, `data_evento`, `data_cadastro`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ingresso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_lote` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
   `codigo` varchar(64) NOT NULL,
   `duplicado` int(11) DEFAULT '0',
   `cortesia` int(11) NOT NULL DEFAULT '0',
-  `data_cadastro` date NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `codigo` (`codigo`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2572 ;
+  `data_cadastro` date NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2578 ;
 
 --
 -- Extraindo dados da tabela `ingresso`
@@ -1516,7 +1514,13 @@ INSERT INTO `ingresso` (`id`, `id_lote`, `status`, `codigo`, `duplicado`, `corte
 (2518, 9, 1, '00972', 0, 0, '2014-06-07'),
 (2517, 9, 1, '00971', 0, 0, '2014-06-07'),
 (2516, 9, 2, '00970', 2, 0, '2014-06-07'),
-(2515, 9, 2, '00969', 4, 0, '2014-06-07');
+(2515, 9, 2, '00969', 4, 0, '2014-06-07'),
+(2572, 11, 0, '1', 0, 0, '2014-06-21'),
+(2573, 11, 0, '2', 0, 0, '2014-06-21'),
+(2574, 11, 0, '3', 0, 0, '2014-06-21'),
+(2575, 11, 0, '4', 0, 0, '2014-06-21'),
+(2576, 11, 0, '5', 0, 0, '2014-06-21'),
+(2577, 11, 0, '6', 0, 0, '2014-06-21');
 
 -- --------------------------------------------------------
 
@@ -1525,12 +1529,11 @@ INSERT INTO `ingresso` (`id`, `id_lote`, `status`, `codigo`, `duplicado`, `corte
 --
 
 CREATE TABLE IF NOT EXISTS `lote` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_evento` int(11) NOT NULL,
   `nome` varchar(64) NOT NULL,
-  `preco` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `preco` double NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Extraindo dados da tabela `lote`
@@ -1541,7 +1544,8 @@ INSERT INTO `lote` (`id`, `id_evento`, `nome`, `preco`) VALUES
 (2, 1, 'Lote 2', 20),
 (3, 1, 'Bilheteria', 25),
 (9, 2, 'teste', 10),
-(10, 2, 'teste2', 100);
+(10, 2, 'teste2', 100),
+(11, 3, 'lote 1', 1);
 
 -- --------------------------------------------------------
 
@@ -1550,16 +1554,15 @@ INSERT INTO `lote` (`id`, `id_evento`, `nome`, `preco`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `text` varchar(64) NOT NULL,
   `leaf` varchar(8) NOT NULL,
   `expanded` tinyint(1) NOT NULL,
   `controllername` varchar(64) DEFAULT NULL,
   `xtypeClass` varchar(64) DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
-  `permissao` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `permissao` int(11) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Extraindo dados da tabela `menu`
@@ -1571,7 +1574,10 @@ INSERT INTO `menu` (`id`, `text`, `leaf`, `expanded`, `controllername`, `xtypeCl
 (4, 'Entrada', 'true', 0, NULL, 'Entrada', 8, 1),
 (5, 'Relatorios', 'false', 1, NULL, NULL, 0, 1),
 (8, 'Guiche', 'false', 1, NULL, NULL, 0, 1),
-(9, 'Completo', 'true', 0, NULL, 'relatorio', 5, 1);
+(9, 'Ingressos', 'true', 0, NULL, 'relatorio', 5, 1),
+(13, 'Bar', 'true', 0, NULL, 'Bar', 8, 1),
+(11, 'Fichas', 'true', 0, '', 'CadFichaProduto', 12, 1),
+(12, 'Produto', 'false', 1, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1580,9 +1586,8 @@ INSERT INTO `menu` (`id`, `text`, `leaf`, `expanded`, `controllername`, `xtypeCl
 --
 
 CREATE TABLE IF NOT EXISTS `permissao` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(64) NOT NULL,
-  PRIMARY KEY (`id`)
+`id` int(11) NOT NULL,
+  `nome` varchar(64) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -1595,18 +1600,70 @@ INSERT INTO `permissao` (`id`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `preco_produto_evento`
+--
+
+CREATE TABLE IF NOT EXISTS `preco_produto_evento` (
+`id` int(10) unsigned NOT NULL,
+  `id_evento` int(10) unsigned NOT NULL,
+  `id_produto` int(10) unsigned NOT NULL,
+  `preco` double NOT NULL,
+  `data_cadastro` date NOT NULL,
+  `codigo` varchar(64) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `duplicado` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+
+--
+-- Extraindo dados da tabela `preco_produto_evento`
+--
+
+INSERT INTO `preco_produto_evento` (`id`, `id_evento`, `id_produto`, `preco`, `data_cadastro`, `codigo`, `status`, `duplicado`) VALUES
+(9, 1, 3, 4, '2014-06-20', '1', 0, 0),
+(18, 3, 5, 10, '2014-06-21', '1', 2, 2),
+(19, 3, 5, 10, '2014-06-21', '2', 0, 0),
+(27, 3, 2, 15, '2014-06-21', '00003', 0, 0),
+(26, 3, 2, 15, '2014-06-21', '00002', 0, 0),
+(25, 3, 2, 15, '2014-06-21', '00001', 0, 0),
+(28, 3, 2, 15, '2014-06-21', '00004', 0, 0),
+(29, 3, 2, 15, '2014-06-21', '00005', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produto`
+--
+
+CREATE TABLE IF NOT EXISTS `produto` (
+`id` int(10) unsigned NOT NULL,
+  `nome` varchar(128) NOT NULL,
+  `data_cadastro` date NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Extraindo dados da tabela `produto`
+--
+
+INSERT INTO `produto` (`id`, `nome`, `data_cadastro`) VALUES
+(2, 'EnergÃ©tico', '2014-06-20'),
+(3, 'Cerveja', '2014-06-20'),
+(4, 'Whisky', '2014-06-20'),
+(5, 'Cerveja LatÃ£o', '2014-06-21');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `nome` varchar(128) NOT NULL,
   `cpf` varchar(64) NOT NULL,
   `data_cadastro` date NOT NULL,
   `login` varchar(64) NOT NULL,
   `senha` varchar(128) NOT NULL,
-  `permissao` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `permissao` int(11) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -1616,6 +1673,125 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 INSERT INTO `usuario` (`id`, `nome`, `cpf`, `data_cadastro`, `login`, `senha`, `permissao`) VALUES
 (1, 'admin', '', '2014-06-07', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_preco_produto`
+--
+CREATE TABLE IF NOT EXISTS `vw_preco_produto` (
+`id` int(10) unsigned
+,`id_evento` int(10) unsigned
+,`id_produto` int(10) unsigned
+,`preco` double
+,`data_cadastro` date
+,`nome_produto` varchar(128)
+,`nome_evento` varchar(64)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_preco_produto`
+--
+DROP TABLE IF EXISTS `vw_preco_produto`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_preco_produto` AS select `A`.`id` AS `id`,`A`.`id_evento` AS `id_evento`,`A`.`id_produto` AS `id_produto`,`A`.`preco` AS `preco`,`A`.`data_cadastro` AS `data_cadastro`,`B`.`nome` AS `nome_produto`,`C`.`nome` AS `nome_evento` from ((`preco_produto_evento` `A` left join `produto` `B` on((`A`.`id_produto` = `B`.`id`))) left join `evento` `C` on((`A`.`id_evento` = `C`.`id`)));
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `evento`
+--
+ALTER TABLE `evento`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ingresso`
+--
+ALTER TABLE `ingresso`
+ ADD PRIMARY KEY (`id`), ADD KEY `codigo` (`codigo`);
+
+--
+-- Indexes for table `lote`
+--
+ALTER TABLE `lote`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `permissao`
+--
+ALTER TABLE `permissao`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `preco_produto_evento`
+--
+ALTER TABLE `preco_produto_evento`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `uk_ficha_evento` (`id_evento`,`codigo`), ADD KEY `id_evento` (`id_evento`,`id_produto`);
+
+--
+-- Indexes for table `produto`
+--
+ALTER TABLE `produto`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `evento`
+--
+ALTER TABLE `evento`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `ingresso`
+--
+ALTER TABLE `ingresso`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2578;
+--
+-- AUTO_INCREMENT for table `lote`
+--
+ALTER TABLE `lote`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `menu`
+--
+ALTER TABLE `menu`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `permissao`
+--
+ALTER TABLE `permissao`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `preco_produto_evento`
+--
+ALTER TABLE `preco_produto_evento`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `produto`
+--
+ALTER TABLE `produto`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

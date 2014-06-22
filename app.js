@@ -27,6 +27,9 @@ Ext.require([
 	'IGExt.controller.menuIngressoIngressos',
 	'IGExt.controller.menuGuicheEntrada',
 	'IGExt.controller.menuRelatorioCompleto',
+	'IGExt.controller.menuProdutoProdutos',
+	'IGExt.controller.menuPrecoProdutoProdutos',
+	'IGExt.controller.menuGuicheBar',
 	'Ext.form.Panel',
 	'Ext.form.field.*',
 	'Ext.chart.*'
@@ -38,7 +41,7 @@ Ext.require([
 Ext.application({
 	name: 'IGExt',
 	appFolder: 'app',
-	controllers: ['menuEventoEventos','menuLoteLotes','menuIngressoIngressos','menuGuicheEntrada','menuRelatorioStatusIngresso','menuRelatorioLucroIngresso','menuUsuarioUsuarios','menuVendaVendaIngresso','menuRelatorioCompleto'],
+	controllers: ['menuEventoEventos','menuLoteLotes','menuIngressoIngressos','menuGuicheEntrada','menuRelatorioStatusIngresso','menuRelatorioLucroIngresso','menuUsuarioUsuarios','menuVendaVendaIngresso','menuRelatorioCompleto','menuProdutoProdutos','menuPrecoProdutoProdutos','menuGuicheBar'],
 	autoCreateViewport: true,
 	launch: function(){
 		Ext.util.CSS.swapStyleSheet("theme","extjs/resources/css/ext-all-gray.css")

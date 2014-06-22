@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once('../Db/Base.php');
 
@@ -138,7 +138,6 @@ class Ingresso extends Base{
         $stm->bindValue(':cortesia', $data->cortesia!='' ? 1 : 0);
         $stm->execute();
 
-
         $result = $stm->fetch(\PDO::FETCH_ASSOC);
 
         $insert = $db->lastInsertId();
@@ -153,6 +152,7 @@ class Ingresso extends Base{
             "message" => $msg,
             "data" => $newData
         ));
+
     }
 
     public function insertVarios() {
