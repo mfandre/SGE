@@ -195,6 +195,22 @@ class PrecoProduto extends Base{
                                "total" => $total['total']
                                ));
     }
+    
+    public function relatorioPorEvento(){
+        $id_evento = trim($_POST['id_evento']) == "" ? 0 : $_POST['id_evento'];
+        $sql = "SELECT B.nome produto,sum(preco) total,count(B.id) qtde FROM " . $this->getTable() . " A left join produto B on (A.id_produto = B.id) WHERE id_evento = :id_evento and status = 2 group by id_produto";
+        
+        $db = $this->getDb();
+        $stm = $db->prepare($sql);
+        $stm->bindValue(":id_evento", $id_evento);
+        $stm->execute();
+        
+        echo json_encode(array(
+                               "data" => $stm->fetchAll(\PDO::FETCH_ASSOC),
+                               "success" => true,
+                               "total" => $total['total']
+                               ));
+    }
 
 }
 
