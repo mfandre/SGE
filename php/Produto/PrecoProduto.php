@@ -160,9 +160,13 @@ class PrecoProduto extends Base{
     }
 
     public function fetchall(){
-        $id_evento = trim($_POST['id_evento']) == "" ? 0 : $_POST['id_evento'];
-        $id_produto = trim($_POST['id_produto']) == ""? 0 : $_POST['id_produto'];
-        
+	if(!isset($_POST['id_evento']) || !isset($_POST['id_produto']))
+		return;        
+
+	$id_evento = trim($_POST['id_evento']) == "" ? 0 : $_POST['id_evento'];
+	$id_produto = trim($_POST['id_produto']) == ""? 0 : $_POST['id_produto'];
+
+
         $start = $_POST['start'];
         $limit = $_POST['limit'];
         
